@@ -6,13 +6,13 @@ from langchain.memory import ConversationBufferMemory
 import streamlit as st
 import common_functions as cf
 
-def retrieve_fin_hr_pcm_index():
+def retrieve_fin_hr_pcm_index(index_name):
     embedding=HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
     folder_path="Finance_HR_Procurement_faiss"
     #download_path="https://www.dropbox.com/sh/o9tfhuad8uwqh4u/AAC-kEoP07FWzpI7PaVavcmka?dl=0"
     vectorstore = FAISS.load_local(
         folder_path=folder_path, embeddings=embedding,
-        index_name="fin_hr_procurement_HuggingFace"
+        index_name=index_name
         )
     return embedding, vectorstore
 
