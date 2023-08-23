@@ -84,8 +84,8 @@ vectorstore = None
 #setup the sidebar section
 with st.sidebar:
     alex_logo.add_sidebar_logo()
-    # data_df_dase = pd.read_csv('prompt_template.csv')
-    data_df_dase = pd.read_csv('https://www.dropbox.com/s/6v3ldwaoqe80iv0/prompt_template.csv?dl=1')
+    data_df_dase = pd.read_csv('prompt_template.csv')
+    #data_df_dase = pd.read_csv('https://www.dropbox.com/s/6v3ldwaoqe80iv0/prompt_template.csv?dl=1')
 
     prompt_category_list = data_df_dase['prompt_category'].tolist()
 
@@ -105,6 +105,7 @@ with st.sidebar:
         fin_hr_pcm_flag = True
         default_prompt = df_selection['prompt'].values[0]
         fix_prompt = df_selection['fix_prompt'].values[0]
+        index_name = df_selection['index_name'].values[0]
         upload_name1 = df_selection['Doc_01'].values[0]
         upload_name2 = df_selection['Doc_02'].values[0]
     
@@ -127,7 +128,7 @@ with st.expander("###### User Content Input Area"):
 
     elif fin_hr_pcm_flag:
         # Pull embedding type & Finance HR & Procurement VectorStore Index
-        embedding, vectorstore = retrieval_QA.retrieve_fin_hr_pcm_index()
+        embedding, vectorstore = retrieval_QA.retrieve_fin_hr_pcm_index(index_name)
         # Upload Documents for review
         tab1 = st.tabs([" 📄word / 📂pdf / 📊excel "])
         content_01 = retrieval_QA.upload_documents()
