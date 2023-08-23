@@ -33,7 +33,7 @@ def retrieve_conversation_memory():
     return memory
 
 def upload_documents():
-    # Upload Patient Notes
+    # Upload Context Documents
     context=""
     uploaded_files = st.file_uploader("Upload relevant documents for context", 
                                       type=["pdf", "xlsx", 'csv', 'xls', 'docx'], accept_multiple_files=True)
@@ -42,8 +42,11 @@ def upload_documents():
         for uploaded_file in uploaded_files:
             count+=1
             if uploaded_file.name.endswith(('.pdf')):
-                context += cf.retrieve_multi_pdf_text(upload_file)
+                context += cf.retrieve_multi_pdf_text([uploaded_file])
             elif uploaded_file.name.endswith(('.xlsx', '.xls', '.csv')):
-                extracted_text = cf.retrieve_multi_excel_text(upload_file)
+                extracted_text = cf.retrieve_multi_excel_text([uploaded_file])
+                context += f"Document {count}:{extracted_text}"
+            elif uploaded_file.name.endswith(('.docx')):
+                extracted_text = cf.retrieve_multi_docx_text([uploaded_file])
                 context += f"Document {count}:{extracted_text}"
     return context
