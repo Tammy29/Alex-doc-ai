@@ -16,7 +16,7 @@ def retrieve_multi_pdf_text(pdf_files):
 def retrieve_multi_excel_text(excel_files):
     text = {}
     for excel_file in excel_files:
-        if excel_file.endswith(('.csv','.xml')):
+        if excel_file.name.endswith(('.csv')):
             df_data = pd.read_csv(excel_file)
             json_text = json.loads(df_data.to_json(orient="records"))
             text["Sheet1"]= json_text
